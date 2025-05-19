@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, Tunji!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff0f5;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 500px;
+      margin: 50px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff9ec5, #a78bfa);
+      color: white;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    .card h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      font-family: 'Pacifico', cursive;
+    }
+
+    .card.open .content {
+      display: block;
+    }
+
+    .content {
+      display: none;
+      margin-top: 40px;
+      color: #333;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+    }
+
+    .tunji-img {
+      width: 220px;
+      border-radius: 100%;
+      margin-bottom: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: #ff69b4;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin: 40px 0 10px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 30px;
+      background: #999;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    .cake-cut {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .knife {
+      position: absolute;
+      left: -60px;
+      top: -10px;
+      font-size: 2rem;
+      transform: rotate(45deg);
+      transition: left 0.5s ease;
+    }
+
+    .cutting .knife {
+      left: 50%;
+    }
+
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: yellow;
+      border-radius: 50%;
+      animation: explode 1s ease forwards;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0.2); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Balloons -->
+  <div class="balloon" style="background: #ff69b4; top: 10%; left: 10%;"></div>
+  <div class="balloon" style="background: #ffd700; top: 20%; left: 80%; animation-delay: 1s;"></div>
+  <div class="balloon" style="background: #00ced1; top: 30%; left: 20%; animation-delay: 2s;"></div>
+  <div class="balloon" style="background: #9370db; top: 40%; left: 70%; animation-delay: 3s;"></div>
+
+  <!-- Main Card -->
+  <div class="card" id="card">
+    <h1>Happy Birthday, Tunji! 🎉</h1>
+    <p>Click to open your surprise</p>
+
+    <div class="content">
+      <img src="tunjimain.jpg" alt="Tunji" class="tunji-img">
+      
+      <p>Dear Tunji,</p>
+      <p>On your special day, we just wanted to remind you how amazing you are. You might be an introvert, but your presence is always felt in the warmest and most thoughtful ways. 🎂</p>
+      <p>We hope this little digital card brightens your day as much as your smile brightens ours.</p>
+      <p>Wishing you love, peace, and lots of laughter! 💖</p>
+      <p>From all of us — your crazy friends who made this. 😄</p>
+
+      <div class="cake-cut" id="cake">
+        <div class="knife">🔪</div>
+        🍰 Click to cut the cake!
+      </div>
+
+      <button onclick="toggleMusic()">▶️ Play/Pause Song</button>
+    </div>
+  </div>
+
+ 
+  <footer>Made with 💖 by Jarif</footer>
+
+  <!-- Audio -->
+  <audio id="song" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <script>
+    const card = document.getElementById('card');
+    const cake = document.getElementById('cake');
+    const song = document.getElementById('song');
+
+    card.addEventListener('click', () => {
+      card.classList.toggle('open');
+      if (card.classList.contains('open')) {
+        createFireworks();
+      }
+    });
+
+    function toggleMusic() {
+      if (song.paused) {
+        song.play();
+      } else {
+        song.pause();
+      }
+    }
+
+    cake.addEventListener('click', () => {
+      cake.classList.add('cutting');
+      setTimeout(() => {
+        cake.innerHTML = '🎉 Cake Cut! Yummy!';
+      }, 1500);
+    });
+
+    function createFireworks() {
+      for (let i = 0; i < 15; i++) {
+        const fw = document.createElement('div');
+        fw.className = 'firework';
+        fw.style.top = Math.random() * 100 + 'vh';
+        fw.style.left = Math.random() * 100 + 'vw';
+        fw.style.background = ['red', 'yellow', 'orange', 'cyan'][Math.floor(Math.random() * 4)];
+        document.body.appendChild(fw);
+        setTimeout(() => fw.remove(), 1000);
+      }
+    }
+  
+
+  </script>
+</body>
+</html>
+
+
+
+
+
